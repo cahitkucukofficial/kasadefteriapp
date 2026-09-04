@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gizlilik Politikası — Kasa Defteri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FAF6EE;
+  --paper-deep:#F1E9D8;
+  --paper-line:#E4DAC2;
+  --ink:#221F19;
+  --ink-soft:#6E6455;
+  --ink-faint:#9C9280;
+  --emerald-deep:#064E3B;
+  --emerald:#0C6B4F;
+  --emerald-bright:#10B981;
+  --card:#FFFDF8;
+  --radius:6px;
+  --shadow:0 1px 2px rgba(34,31,25,0.04), 0 8px 24px -12px rgba(34,31,25,0.18);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'Work Sans',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;line-height:1.65;font-size:16px;-webkit-font-smoothing:antialiased}
+a{color:var(--emerald-deep);text-decoration:none}
+a:hover{color:var(--emerald)}
+::selection{background:var(--emerald-bright);color:#fff}
+a:focus-visible, button:focus-visible{outline:2px solid var(--emerald);outline-offset:3px;border-radius:4px}
+.kap{max-width:720px;margin:0 auto;padding:28px 28px 100px}
+header{border-bottom:1px solid var(--paper-line);margin-bottom:32px;padding-bottom:22px}
+h1{font-family:'Fraunces',Georgia,serif;font-size:28px;font-weight:600;margin:0 0 8px;letter-spacing:-0.02em;display:flex;align-items:center;gap:10px}
+h1::before{
+  content:'₺';flex-shrink:0;width:30px;height:30px;border-radius:7px;
+  background:linear-gradient(155deg, var(--emerald-bright) 0%, var(--emerald-deep) 100%);
+  color:#fff;font-family:'Space Mono',monospace;font-size:15px;font-weight:700;
+  display:inline-flex;align-items:center;justify-content:center;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,0.25);
+}
+h2{font-family:'Fraunces',Georgia,serif;font-size:22px;font-weight:600;margin:36px 0 12px;letter-spacing:-0.01em}
+h3{font-size:15px;margin:26px 0 8px;font-weight:600;color:var(--emerald-deep)}
+p{margin:0 0 14px;font-size:15.5px}
+.slogan{color:var(--ink-soft);margin:0;font-size:14.5px}
+nav{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:16px;font-size:14px}
+nav a{color:var(--ink-soft);text-decoration:none;font-weight:600;transition:color .15s}
+nav a:hover{color:var(--emerald-deep)}
+.diller{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.diller button{border:1px solid var(--paper-line);background:var(--card);color:var(--ink-soft);border-radius:999px;padding:6px 13px;font-size:12.5px;cursor:pointer;font-family:'Work Sans',sans-serif;font-weight:600;transition:all .15s}
+.diller button:hover{border-color:var(--emerald);color:var(--emerald-deep)}
+.diller button[aria-current="true"]{background:var(--emerald-deep);border-color:var(--emerald-deep);color:#fff}
+ul{padding-left:20px;margin:0 0 14px}
+li{margin-bottom:6px}
+.kutu{background:var(--card);border:1px solid var(--paper-line);border-radius:var(--radius);padding:18px 20px;margin:18px 0;box-shadow:var(--shadow)}
+.kucuk{font-size:12.5px;color:var(--ink-faint);font-family:'Space Mono',monospace}
+footer{border-top:1px solid var(--paper-line);margin-top:48px;padding-top:20px;font-size:12.5px;color:var(--ink-faint);font-family:'Space Mono',monospace}
+[data-dil]{display:none}
+[data-dil].acik{display:block}
+/* ---------- sayfa geçiş butonu ---------- */
+.sayfa-gecis{
+  position:fixed; left:50%; bottom:18px; transform:translateX(-50%);
+  display:flex; align-items:center; gap:4px;
+  background:var(--card); border:1px solid var(--paper-line);
+  border-radius:999px; padding:6px;
+  box-shadow:var(--shadow); z-index:200;
+}
+.sg-btn{
+  display:flex; align-items:center; gap:6px; padding:10px 16px;
+  border-radius:999px; font-size:13.5px; font-weight:600; color:var(--ink);
+  transition:background .15s, transform .15s;
+}
+.sg-btn:hover{background:var(--paper-deep)}
+.sg-btn:active{transform:scale(.96)}
+.sg-home{
+  width:38px; height:38px; border-radius:50%; flex-shrink:0;
+  background:var(--emerald-deep); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:16px;
+  transition:transform .15s, background .15s;
+}
+.sg-home:hover{background:var(--emerald); transform:scale(1.08) rotate(-6deg)}
+.sg-prev .arrow{display:inline-block; animation:sg-nudge-left 1.8s ease-in-out infinite}
+.sg-next .arrow{display:inline-block; animation:sg-nudge-right 1.8s ease-in-out infinite}
+@keyframes sg-nudge-left{0%,100%{transform:translateX(0)}50%{transform:translateX(-3px)}}
+@keyframes sg-nudge-right{0%,100%{transform:translateX(0)}50%{transform:translateX(3px)}}
+@media (max-width:420px){ .sg-btn .txt{display:none} .sg-btn{padding:10px 12px} }
+</style>
+</head>
+<body>
+<div class="kap">
+<div class="diller"><button type="button" data-kod="tr" onclick="dilSec('tr')">Türkçe</button><button type="button" data-kod="en" onclick="dilSec('en')">English</button><button type="button" data-kod="de" onclick="dilSec('de')">Deutsch</button><button type="button" data-kod="fr" onclick="dilSec('fr')">Français</button><button type="button" data-kod="es" onclick="dilSec('es')">Español</button><button type="button" data-kod="it" onclick="dilSec('it')">Italiano</button><button type="button" data-kod="ru" onclick="dilSec('ru')">Русский</button></div>
+<div data-dil="tr"><header><h1>Kasa Defteri</h1><p class="slogan">Kişisel gelir-gider defteri. Verilerin yalnızca senin cihazında.</p><nav><a href="index.html">Ana Sayfa</a><a href="gizlilik.html">Gizlilik Politikası</a><a href="destek.html">Destek</a><a href="veri-silme.html">Veri Silme</a></nav></header><h2>Gizlilik Politikası</h2>
+<p class="kucuk">Son güncelleme: Ağustos 2026. Bu metin bilgilendirme amaçlıdır ve hukuki danışmanlık yerine geçmez.</p>
+<h3>1. Veri Sorumlusu ve Kapsam</h3><p>Kasa Defteri ("uygulama"), kişisel gelir-gider takibi için geliştirilmiş bir mobil uygulamadır. Uygulamanın yayıncısı ve KVKK anlamında veri sorumlusu Cahit Küçük'dir. Bu metin, uygulamayı kullandığında hangi bilgilerin işlendiğini ve haklarını açıklar.</p>
+<h3>2. İşlenen Bilgiler ve Saklandığı Yer</h3><p>Uygulamaya girdiğin tüm veriler (hesap adları, işlemler, kategoriler, bütçe limitleri, işlem fotoğrafları, dil/para birimi/tema tercihlerin) yalnızca kendi cihazının yerel depolama alanında (IndexedDB) tutulur. Bu veriler cihazından çıkmaz; tarafımıza ya da herhangi bir sunucuya iletilmez. Uygulamanın kullanıcı hesabı, üyelik, e-posta ya da şifre talebi yoktur.</p>
+<h3>3. Saklama Süresi</h3><p>Veriler, sen silene ya da "Tümünü Sıfırla" seçeneğini kullanana kadar cihazında durur. Uygulamayı kaldırdığında cihazdaki tüm veriler de silinir. Bizim elimizde tuttuğumuz bir kopya olmadığı için ayrı bir saklama süremiz yoktur.</p>
+<h3>4. Üçüncü Taraflarla Paylaşım</h3><p>Verilerin hiçbir üçüncü tarafla paylaşılmaz, satılmaz ve pazarlama amacıyla kullanılmaz. Uygulamada reklam ağı, analitik aracı ya da kullanıcı takip eden herhangi bir üçüncü taraf yazılım bulunmaz.</p>
+<h3>5. İnternet Bağlantısı ve Dış Servisler</h3><p>Uygulama yalnızca tek bir amaçla internete bağlanır: güncel döviz kurlarını almak. Bu istek Türkiye Cumhuriyet Merkez Bankası'nın (tcmb.gov.tr) günlük kur verisine, ulaşılamazsa yedek açık kaynak servisine (open.er-api.com) gider. Bu isteklerde yalnızca kur bilgisi çekilir; senin hiçbir kişisel verin, işlemin ya da cihaz bilgin gönderilmez. Döviz özelliğini kullanmıyorsan uygulama tamamen çevrimdışı çalışır.</p>
+<h3>6. Cihaz İzinleri</h3><p>Uygulama yalnızca kullandığın özellik için izin ister. Kamera izni, işleme fiş fotoğrafı eklemek istediğinde sorulur ve çekilen fotoğraf yalnızca cihazında saklanır. Bildirim izni, hatırlatıcıyı açtığında sorulur ve yalnızca senin belirlediğin saatte cihaz üzerinde yerel bildirim göstermek için kullanılır. İzin vermemeyi seçebilirsin; yalnızca ilgili özellik çalışmaz, uygulamanın kalanı normal kullanılır. Konum, rehber, SMS ve çağrı kayıtlarına erişilmez.</p>
+<h3>7. Haklarına Nasıl Kullanırsın</h3><p>Veriler cihazında ve senin kontrolünde olduğu için erişim, düzeltme ve silme haklarını doğrudan uygulama içinden kullanırsın: her kaydı görüntüleyebilir, düzenleyebilir ve silebilirsin. Dışa aktarma seçeneğiyle (.json veya .xlsx) verilerinin taşınabilir bir kopyasını alabilirsin.</p>
+<h3>8. Silme İşlemleri</h3><p>Hareketi olmayan bir hesabı doğrudan Hesaplar ekranından silebilirsin. Hareketi olan bir hesabı sildiğinde veri kaybı olmasın diye önce Silinen Hesaplar'a taşınır; oradan geri alabilir ya da kalıcı olarak kaldırabilirsin. "Tümünü Sıfırla" tüm verileri kalıcı ve geri dönülemez biçimde siler.</p>
+<h3>9. Güvenlik</h3><p>Veriler cihazının kendi korumalı uygulama alanında tutulur. Daha → Şifre Kilidi bölümünden PIN belirleyerek ek bir gizlilik katmanı ekleyebilirsin. PIN, ekranı başkasının görmesine karşı korur; cihaz üzerindeki veriyi şifrelemez. Cihazının kendi ekran kilidini ve güncel bir işletim sistemi sürümünü kullanman önerilir.</p>
+<h3>10. Çerezler ve Takip</h3><p>Uygulama çerez kullanmaz, reklam kimliği oluşturmaz, cihaz parmak izi çıkarmaz ve kullanım davranışını izlemez.</p>
+<h3>11. Yurt Dışına Veri Aktarımı</h3><p>Kişisel verilerin cihazından çıkmadığı için yurt dışına herhangi bir veri aktarımı yapılmaz. Döviz kuru isteği yalnızca kur bilgisi getirir ve kişisel veri içermez.</p>
+<h3>12. Çocukların Gizliliği</h3><p>Uygulama çocuklara yönelik değildir ve bilerek çocuklardan veri toplamaz. Zaten hiçbir kullanıcıdan veri toplanmamaktadır.</p>
+<h3>13. İletişim ve Değişiklikler</h3><p>Gizlilikle ilgili sorularını cahit_kucuk@hotmail.com.tr adresine iletebilirsin. Bu politika güncellenebilir; önemli bir değişiklik olduğunda uygulama içinde bu ekranda ve güncelleme tarihinde belirtilir. Politikanın güncel hâline https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html adresinden de ulaşabilirsin.</p><footer>Yayıncı: Cahit Küçük · E-posta: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="en"><header><h1>Cash Book</h1><p class="slogan">A personal income and expense book. Your data stays on your device.</p><nav><a href="index.html">Home</a><a href="gizlilik.html">Privacy Policy</a><a href="destek.html">Support</a><a href="veri-silme.html">Data Deletion</a></nav></header><h2>Privacy Policy</h2>
+<p class="kucuk">Last updated: Ağustos 2026. This text is for information only and does not replace legal advice.</p>
+<h3>1. Data Controller and Scope</h3><p>Cash Book (the "app") is a mobile application for tracking personal income and expenses. The publisher of the app and the data controller is Cahit Küçük. This text explains what information is processed when you use the app and what your rights are.</p>
+<h3>2. Information Processed and Where It Is Stored</h3><p>All data you enter into the app (account names, transactions, categories, budget limits, transaction photos, your language/currency/theme preferences) is kept only in your own device's local storage (IndexedDB). This data never leaves your device; it is not sent to us or to any server. The app requires no user account, membership, email or password.</p>
+<h3>3. Retention Period</h3><p>The data stays on your device until you delete it or use "Reset Everything". When you uninstall the app, all data on the device is deleted with it. Since we hold no copy, we have no separate retention period.</p>
+<h3>4. Sharing With Third Parties</h3><p>Your data is not shared with any third party, not sold, and not used for marketing. The app contains no advertising network, no analytics tool and no third-party software that tracks users.</p>
+<h3>5. Internet Connection and External Services</h3><p>The app connects to the internet for one purpose only: to fetch current exchange rates. That request goes to the daily rate data of the Central Bank of the Republic of Türkiye (tcmb.gov.tr) and, if it is unreachable, to a backup open source (open.er-api.com). Only rate information is retrieved; none of your personal data, transactions or device information is sent. If you don't use the currency feature, the app works entirely offline.</p>
+<h3>6. Device Permissions</h3><p>The app asks for a permission only for the feature you are using. Camera permission is requested when you want to add a receipt photo to an entry, and the photo is stored only on your device. Notification permission is requested when you turn the reminder on, and is used only to show a local notification on the device at the time you set. You can decline; only that feature stops working and the rest of the app is used normally. Location, contacts, SMS and call logs are never accessed.</p>
+<h3>7. How to Exercise Your Rights</h3><p>Because the data is on your device and under your control, you exercise your rights of access, correction and deletion directly in the app: you can view, edit and delete every entry. With the export option (.json or .xlsx) you can obtain a portable copy of your data.</p>
+<h3>8. Deletion</h3><p>You can delete an account with no movements directly from the Accounts screen. When you delete an account with movements it is first moved to Deleted Accounts to prevent data loss; from there you can restore it or remove it permanently. "Reset Everything" deletes all data permanently and irreversibly.</p>
+<h3>9. Security</h3><p>Data is held in your device's own protected application area. You can add an extra layer of privacy by setting a PIN under More → Passcode. The PIN protects the screen from being seen by others; it does not encrypt the data on the device. We recommend using your device's own screen lock and an up-to-date operating system.</p>
+<h3>10. Cookies and Tracking</h3><p>The app uses no cookies, creates no advertising identifier, does not fingerprint your device and does not track your usage behaviour.</p>
+<h3>11. International Data Transfers</h3><p>Since your personal data never leaves your device, no data is transferred abroad. The exchange-rate request only brings back rate information and contains no personal data.</p>
+<h3>12. Children's Privacy</h3><p>The app is not directed at children and does not knowingly collect data from children. No data is collected from any user in any case.</p>
+<h3>13. Contact and Changes</h3><p>You can send privacy questions to cahit_kucuk@hotmail.com.tr. This policy may be updated; if there is an important change it will be stated on this screen and in the update date. You can also find the current version at https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Publisher: Cahit Küçük · Email: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="de"><header><h1>Kassenbuch</h1><p class="slogan">Ein persönliches Einnahmen- und Ausgabenbuch. Deine Daten bleiben auf deinem Gerät.</p><nav><a href="index.html">Startseite</a><a href="gizlilik.html">Datenschutzerklärung</a><a href="destek.html">Support</a><a href="veri-silme.html">Datenlöschung</a></nav></header><h2>Datenschutzerklärung</h2>
+<p class="kucuk">Zuletzt aktualisiert: Ağustos 2026. Dieser Text dient nur der Information und ersetzt keine Rechtsberatung.</p>
+<h3>1. Verantwortlicher und Geltungsbereich</h3><p>Kassenbuch (die „App") ist eine mobile Anwendung zum Verfolgen persönlicher Einnahmen und Ausgaben. Herausgeber der App und Verantwortlicher ist Cahit Küçük. Dieser Text erklärt, welche Informationen bei der Nutzung verarbeitet werden und welche Rechte du hast.</p>
+<h3>2. Verarbeitete Informationen und Speicherort</h3><p>Alle Daten, die du in die App eingibst (Kontonamen, Buchungen, Kategorien, Budgetgrenzen, Belegfotos, deine Sprach-, Währungs- und Design-Vorlieben), werden ausschließlich im lokalen Speicher deines eigenen Geräts (IndexedDB) gehalten. Diese Daten verlassen dein Gerät nicht; sie werden weder an uns noch an einen Server übertragen. Die App verlangt kein Benutzerkonto, keine Mitgliedschaft, keine E-Mail und kein Passwort.</p>
+<h3>3. Aufbewahrungsdauer</h3><p>Die Daten bleiben auf deinem Gerät, bis du sie löschst oder „Alles zurücksetzen" verwendest. Wenn du die App deinstallierst, werden alle Daten auf dem Gerät mit gelöscht. Da wir keine Kopie besitzen, haben wir keine eigene Aufbewahrungsfrist.</p>
+<h3>4. Weitergabe an Dritte</h3><p>Deine Daten werden an keinen Dritten weitergegeben, nicht verkauft und nicht für Marketing verwendet. Die App enthält kein Werbenetzwerk, kein Analysewerkzeug und keine Software Dritter, die Nutzer verfolgt.</p>
+<h3>5. Internetverbindung und externe Dienste</h3><p>Die App verbindet sich nur zu einem einzigen Zweck mit dem Internet: um aktuelle Wechselkurse abzurufen. Diese Anfrage geht an die Tageskursdaten der Zentralbank der Republik Türkei (tcmb.gov.tr) und, falls diese nicht erreichbar ist, an eine offene Ersatzquelle (open.er-api.com). Dabei werden ausschließlich Kursdaten abgerufen; keine deiner persönlichen Daten, Buchungen oder Geräteinformationen werden gesendet. Wenn du die Währungsfunktion nicht nutzt, arbeitet die App vollständig offline.</p>
+<h3>6. Geräteberechtigungen</h3><p>Die App fragt eine Berechtigung nur für die Funktion ab, die du gerade nutzt. Die Kameraberechtigung wird abgefragt, wenn du einer Buchung ein Belegfoto hinzufügen möchtest; das Foto wird nur auf deinem Gerät gespeichert. Die Benachrichtigungsberechtigung wird abgefragt, wenn du die Erinnerung einschaltest, und dient nur dazu, zur von dir gewählten Zeit eine lokale Benachrichtigung auf dem Gerät anzuzeigen. Du kannst ablehnen; dann funktioniert nur diese eine Funktion nicht, der Rest der App bleibt normal nutzbar. Auf Standort, Kontakte, SMS und Anrufliste wird nie zugegriffen.</p>
+<h3>7. Wie du deine Rechte ausübst</h3><p>Da die Daten auf deinem Gerät und unter deiner Kontrolle liegen, übst du deine Rechte auf Auskunft, Berichtigung und Löschung unmittelbar in der App aus: Du kannst jede Buchung ansehen, bearbeiten und löschen. Mit dem Export (.json oder .xlsx) erhältst du eine übertragbare Kopie deiner Daten.</p>
+<h3>8. Löschung</h3><p>Ein Konto ohne Bewegungen kannst du direkt im Kontenbildschirm löschen. Löschst du ein Konto mit Bewegungen, wandert es zunächst zu Gelöschte Konten, damit keine Daten verloren gehen; von dort kannst du es wiederherstellen oder endgültig entfernen. „Alles zurücksetzen" löscht alle Daten dauerhaft und unwiderruflich.</p>
+<h3>9. Sicherheit</h3><p>Die Daten liegen im geschützten Anwendungsbereich deines Geräts. Über Mehr → Zugangscode kannst du mit einer PIN eine zusätzliche Schutzschicht hinzufügen. Die PIN schützt den Bildschirm vor fremden Blicken; sie verschlüsselt die Daten auf dem Gerät nicht. Wir empfehlen, die Bildschirmsperre deines Geräts und ein aktuelles Betriebssystem zu verwenden.</p>
+<h3>10. Cookies und Tracking</h3><p>Die App verwendet keine Cookies, erzeugt keine Werbe-ID, erstellt keinen Geräte-Fingerabdruck und verfolgt dein Nutzungsverhalten nicht.</p>
+<h3>11. Datenübermittlung ins Ausland</h3><p>Da deine personenbezogenen Daten dein Gerät nicht verlassen, findet keine Übermittlung ins Ausland statt. Die Wechselkursanfrage liefert nur Kursdaten und enthält keine personenbezogenen Daten.</p>
+<h3>12. Datenschutz für Kinder</h3><p>Die App richtet sich nicht an Kinder und erhebt wissentlich keine Daten von Kindern. Es werden ohnehin von keinem Nutzer Daten erhoben.</p>
+<h3>13. Kontakt und Änderungen</h3><p>Fragen zum Datenschutz kannst du an cahit_kucuk@hotmail.com.tr senden. Diese Erklärung kann aktualisiert werden; bei einer wichtigen Änderung wird das auf diesem Bildschirm und im Aktualisierungsdatum vermerkt. Die aktuelle Fassung findest du auch unter https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Herausgeber: Cahit Küçük · E-Mail: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="fr"><header><h1>Livre de Caisse</h1><p class="slogan">Un livre de recettes et dépenses personnel. Tes données restent sur ton appareil.</p><nav><a href="index.html">Accueil</a><a href="gizlilik.html">Politique de confidentialité</a><a href="destek.html">Assistance</a><a href="veri-silme.html">Suppression des données</a></nav></header><h2>Politique de confidentialité</h2>
+<p class="kucuk">Dernière mise à jour : Ağustos 2026. Ce texte est fourni à titre d'information et ne remplace pas un conseil juridique.</p>
+<h3>1. Responsable du traitement et portée</h3><p>Livre de Caisse (l'« application ») est une application mobile de suivi des recettes et dépenses personnelles. L'éditeur de l'application et le responsable du traitement est Cahit Küçük. Ce texte explique quelles informations sont traitées lorsque tu utilises l'application et quels sont tes droits.</p>
+<h3>2. Informations traitées et lieu de stockage</h3><p>Toutes les données que tu saisis dans l'application (noms de comptes, opérations, catégories, limites de budget, photos d'opérations, tes préférences de langue, de devise et de thème) sont conservées uniquement dans le stockage local de ton propre appareil (IndexedDB). Ces données ne quittent jamais ton appareil ; elles ne nous sont pas transmises ni envoyées à un serveur. L'application ne demande ni compte utilisateur, ni adhésion, ni e-mail, ni mot de passe.</p>
+<h3>3. Durée de conservation</h3><p>Les données restent sur ton appareil jusqu'à ce que tu les supprimes ou que tu utilises « Tout réinitialiser ». Lorsque tu désinstalles l'application, toutes les données de l'appareil sont supprimées avec elle. Comme nous n'en détenons aucune copie, nous n'avons pas de durée de conservation distincte.</p>
+<h3>4. Partage avec des tiers</h3><p>Tes données ne sont partagées avec aucun tiers, ne sont pas vendues et ne servent pas au marketing. L'application ne contient ni régie publicitaire, ni outil d'analyse, ni aucun logiciel tiers qui suivrait les utilisateurs.</p>
+<h3>5. Connexion internet et services externes</h3><p>L'application se connecte à internet dans un seul but : récupérer les taux de change actuels. Cette requête est adressée aux données de taux quotidiens de la Banque centrale de la République de Türkiye (tcmb.gov.tr) et, si celle-ci est injoignable, à une source ouverte de secours (open.er-api.com). Seules des informations de taux sont récupérées ; aucune de tes données personnelles, opérations ou informations d'appareil n'est envoyée. Si tu n'utilises pas la fonction devises, l'application fonctionne entièrement hors ligne.</p>
+<h3>6. Autorisations de l'appareil</h3><p>L'application ne demande une autorisation que pour la fonction que tu utilises. L'autorisation d'accès à l'appareil photo est demandée lorsque tu veux ajouter la photo d'un reçu à une écriture, et la photo est stockée uniquement sur ton appareil. L'autorisation de notification est demandée lorsque tu actives le rappel, et sert uniquement à afficher une notification locale sur l'appareil à l'heure que tu as choisie. Tu peux refuser ; seule cette fonction cesse alors de marcher et le reste de l'application s'utilise normalement. La localisation, les contacts, les SMS et le journal d'appels ne sont jamais consultés.</p>
+<h3>7. Comment exercer tes droits</h3><p>Comme les données sont sur ton appareil et sous ton contrôle, tu exerces tes droits d'accès, de rectification et d'effacement directement dans l'application : tu peux consulter, modifier et supprimer chaque écriture. Avec l'option d'export (.json ou .xlsx) tu obtiens une copie portable de tes données.</p>
+<h3>8. Suppression</h3><p>Tu peux supprimer un compte sans mouvements directement depuis l'écran Comptes. Lorsque tu supprimes un compte avec mouvements, il est d'abord déplacé vers Comptes supprimés pour éviter toute perte de données ; de là tu peux le restaurer ou le retirer définitivement. « Tout réinitialiser » efface toutes les données de façon permanente et irréversible.</p>
+<h3>9. Sécurité</h3><p>Les données sont conservées dans l'espace applicatif protégé de ton appareil. Tu peux ajouter une couche de confidentialité en définissant un PIN depuis Plus → Code d'accès. Le PIN protège l'écran des regards ; il ne chiffre pas les données présentes sur l'appareil. Nous recommandons d'utiliser le verrouillage d'écran de ton appareil et un système d'exploitation à jour.</p>
+<h3>10. Cookies et suivi</h3><p>L'application n'utilise pas de cookies, ne crée aucun identifiant publicitaire, n'établit pas d'empreinte d'appareil et ne suit pas ton comportement d'utilisation.</p>
+<h3>11. Transferts de données hors du pays</h3><p>Tes données personnelles ne quittant pas ton appareil, aucun transfert à l'étranger n'a lieu. La requête de taux de change ne rapporte que des informations de taux et ne contient aucune donnée personnelle.</p>
+<h3>12. Confidentialité des enfants</h3><p>L'application ne s'adresse pas aux enfants et ne collecte pas sciemment de données les concernant. De toute façon, aucune donnée n'est collectée auprès d'aucun utilisateur.</p>
+<h3>13. Contact et modifications</h3><p>Tu peux envoyer tes questions relatives à la confidentialité à cahit_kucuk@hotmail.com.tr. Cette politique peut être mise à jour ; en cas de changement important, cela sera indiqué sur cet écran et dans la date de mise à jour. Tu peux aussi consulter la version en vigueur sur https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Éditeur: Cahit Küçük · E-mail: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="es"><header><h1>Libro de Caja</h1><p class="slogan">Un libro personal de ingresos y gastos. Tus datos se quedan en tu dispositivo.</p><nav><a href="index.html">Inicio</a><a href="gizlilik.html">Política de privacidad</a><a href="destek.html">Soporte</a><a href="veri-silme.html">Eliminación de datos</a></nav></header><h2>Política de privacidad</h2>
+<p class="kucuk">Última actualización: Ağustos 2026. Este texto es informativo y no sustituye al asesoramiento jurídico.</p>
+<h3>1. Responsable del tratamiento y alcance</h3><p>Libro de Caja (la «aplicación») es una aplicación móvil para llevar el control de ingresos y gastos personales. El editor de la aplicación y responsable del tratamiento es Cahit Küçük. Este texto explica qué información se trata cuando usas la aplicación y cuáles son tus derechos.</p>
+<h3>2. Información tratada y dónde se guarda</h3><p>Todos los datos que introduces en la aplicación (nombres de cuentas, movimientos, categorías, límites de presupuesto, fotos de operaciones, tus preferencias de idioma, moneda y tema) se guardan únicamente en el almacenamiento local de tu propio dispositivo (IndexedDB). Estos datos no salen de tu dispositivo; no se envían ni a nosotros ni a ningún servidor. La aplicación no pide cuenta de usuario, suscripción, correo electrónico ni contraseña.</p>
+<h3>3. Plazo de conservación</h3><p>Los datos permanecen en tu dispositivo hasta que los elimines o uses «Restablecer todo». Cuando desinstalas la aplicación, todos los datos del dispositivo se borran con ella. Como no conservamos ninguna copia, no tenemos un plazo de conservación propio.</p>
+<h3>4. Cesión a terceros</h3><p>Tus datos no se comparten con ningún tercero, no se venden y no se usan con fines de marketing. La aplicación no incluye ninguna red publicitaria, ninguna herramienta de analítica ni ningún software de terceros que rastree a los usuarios.</p>
+<h3>5. Conexión a internet y servicios externos</h3><p>La aplicación se conecta a internet con un único fin: obtener los tipos de cambio actuales. Esa petición se dirige a los datos diarios del Banco Central de la República de Türkiye (tcmb.gov.tr) y, si no está accesible, a una fuente abierta de reserva (open.er-api.com). Solo se recupera información de tipos de cambio; no se envía ninguno de tus datos personales, movimientos ni información del dispositivo. Si no usas la función de divisas, la aplicación funciona totalmente sin conexión.</p>
+<h3>6. Permisos del dispositivo</h3><p>La aplicación solo pide permiso para la función que estás usando. El permiso de cámara se solicita cuando quieres añadir la foto de un recibo a un apunte, y la foto se guarda únicamente en tu dispositivo. El permiso de notificaciones se solicita cuando activas el recordatorio, y sirve solo para mostrar una notificación local en el dispositivo a la hora que tú indiques. Puedes denegarlo; solo dejará de funcionar esa función y el resto de la aplicación se usa con normalidad. Nunca se accede a la ubicación, los contactos, los SMS ni el registro de llamadas.</p>
+<h3>7. Cómo ejercer tus derechos</h3><p>Como los datos están en tu dispositivo y bajo tu control, ejerces tus derechos de acceso, rectificación y supresión directamente en la aplicación: puedes ver, editar y eliminar cada apunte. Con la opción de exportar (.json o .xlsx) obtienes una copia portable de tus datos.</p>
+<h3>8. Eliminación</h3><p>Puedes eliminar una cuenta sin movimientos directamente desde la pantalla Cuentas. Cuando eliminas una cuenta con movimientos, primero se traslada a Cuentas eliminadas para evitar pérdidas de datos; desde allí puedes restaurarla o quitarla definitivamente. «Restablecer todo» borra todos los datos de forma permanente e irreversible.</p>
+<h3>9. Seguridad</h3><p>Los datos se guardan en el área protegida de aplicaciones de tu dispositivo. Puedes añadir una capa extra de privacidad estableciendo un PIN desde Más → Código de acceso. El PIN protege la pantalla de miradas ajenas; no cifra los datos del dispositivo. Recomendamos usar el bloqueo de pantalla de tu dispositivo y un sistema operativo actualizado.</p>
+<h3>10. Cookies y rastreo</h3><p>La aplicación no usa cookies, no crea identificadores publicitarios, no genera huella del dispositivo y no rastrea tu comportamiento de uso.</p>
+<h3>11. Transferencias internacionales</h3><p>Como tus datos personales no salen del dispositivo, no se realiza ninguna transferencia al extranjero. La petición de tipos de cambio solo trae información de tipos y no contiene datos personales.</p>
+<h3>12. Privacidad de los menores</h3><p>La aplicación no está dirigida a menores y no recoge conscientemente datos de menores. En cualquier caso, no se recogen datos de ningún usuario.</p>
+<h3>13. Contacto y cambios</h3><p>Puedes enviar tus preguntas sobre privacidad a cahit_kucuk@hotmail.com.tr. Esta política puede actualizarse; si hay un cambio importante se indicará en esta pantalla y en la fecha de actualización. También puedes consultar la versión vigente en https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Editor: Cahit Küçük · Correo electrónico: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="it"><header><h1>Libro Cassa</h1><p class="slogan">Un libro personale di entrate e uscite. I tuoi dati restano sul tuo dispositivo.</p><nav><a href="index.html">Home</a><a href="gizlilik.html">Informativa sulla privacy</a><a href="destek.html">Assistenza</a><a href="veri-silme.html">Cancellazione dei dati</a></nav></header><h2>Informativa sulla privacy</h2>
+<p class="kucuk">Ultimo aggiornamento: Ağustos 2026. Questo testo ha scopo informativo e non sostituisce una consulenza legale.</p>
+<h3>1. Titolare del trattamento e ambito</h3><p>Libro Cassa (l'«app») è un'applicazione mobile per tenere traccia di entrate e uscite personali. L'editore dell'app e titolare del trattamento è Cahit Küçük. Questo testo spiega quali informazioni vengono trattate quando usi l'app e quali sono i tuoi diritti.</p>
+<h3>2. Informazioni trattate e dove sono conservate</h3><p>Tutti i dati che inserisci nell'app (nomi dei conti, movimenti, categorie, limiti di budget, foto delle operazioni, le tue preferenze di lingua, valuta e tema) sono conservati soltanto nella memoria locale del tuo dispositivo (IndexedDB). Questi dati non escono dal tuo dispositivo; non vengono trasmessi a noi né a nessun server. L'app non richiede account, iscrizione, email o password.</p>
+<h3>3. Periodo di conservazione</h3><p>I dati restano sul tuo dispositivo finché non li elimini o non usi «Azzera tutto». Quando disinstalli l'app, tutti i dati sul dispositivo vengono eliminati con essa. Poiché non ne conserviamo alcuna copia, non abbiamo un periodo di conservazione a parte.</p>
+<h3>4. Condivisione con terze parti</h3><p>I tuoi dati non vengono condivisi con terze parti, non vengono venduti e non sono usati per marketing. L'app non contiene reti pubblicitarie, strumenti di analisi né software di terze parti che traccino gli utenti.</p>
+<h3>5. Connessione a internet e servizi esterni</h3><p>L'app si collega a internet per un solo scopo: recuperare i tassi di cambio aggiornati. La richiesta va ai dati giornalieri della Banca Centrale della Repubblica di Türkiye (tcmb.gov.tr) e, se non raggiungibile, a una fonte aperta di riserva (open.er-api.com). Vengono recuperate solo informazioni sui tassi; nessun tuo dato personale, movimento o informazione del dispositivo viene inviato. Se non usi la funzione valute, l'app funziona completamente offline.</p>
+<h3>6. Permessi del dispositivo</h3><p>L'app chiede un permesso solo per la funzione che stai usando. Il permesso della fotocamera viene richiesto quando vuoi aggiungere la foto di uno scontrino a una voce, e la foto resta solo sul tuo dispositivo. Il permesso per le notifiche viene richiesto quando attivi il promemoria e serve solo a mostrare una notifica locale sul dispositivo all'ora che hai scelto. Puoi rifiutare; smetterà di funzionare solo quella funzione e il resto dell'app si usa normalmente. Posizione, contatti, SMS e registro chiamate non vengono mai letti.</p>
+<h3>7. Come esercitare i tuoi diritti</h3><p>Poiché i dati sono sul tuo dispositivo e sotto il tuo controllo, eserciti i diritti di accesso, rettifica e cancellazione direttamente nell'app: puoi vedere, modificare ed eliminare ogni voce. Con l'esportazione (.json o .xlsx) ottieni una copia portabile dei tuoi dati.</p>
+<h3>8. Cancellazione</h3><p>Puoi eliminare un conto senza movimenti direttamente dalla schermata Conti. Quando elimini un conto con movimenti, viene prima spostato in Conti eliminati per evitare perdite di dati; da lì puoi ripristinarlo o rimuoverlo definitivamente. «Azzera tutto» cancella tutti i dati in modo permanente e irreversibile.</p>
+<h3>9. Sicurezza</h3><p>I dati sono conservati nell'area applicativa protetta del tuo dispositivo. Puoi aggiungere un livello di riservatezza impostando un PIN da Altro → Codice di accesso. Il PIN protegge lo schermo da sguardi altrui; non cifra i dati sul dispositivo. Consigliamo di usare il blocco schermo del dispositivo e un sistema operativo aggiornato.</p>
+<h3>10. Cookie e tracciamento</h3><p>L'app non usa cookie, non crea identificatori pubblicitari, non rileva impronte del dispositivo e non traccia il tuo comportamento d'uso.</p>
+<h3>11. Trasferimenti di dati all'estero</h3><p>Poiché i tuoi dati personali non escono dal dispositivo, non avviene alcun trasferimento all'estero. La richiesta dei tassi di cambio riporta solo informazioni sui tassi e non contiene dati personali.</p>
+<h3>12. Privacy dei minori</h3><p>L'app non è rivolta ai minori e non raccoglie consapevolmente dati da minori. In ogni caso non vengono raccolti dati da nessun utente.</p>
+<h3>13. Contatti e modifiche</h3><p>Puoi inviare le tue domande sulla privacy a cahit_kucuk@hotmail.com.tr. Questa informativa può essere aggiornata; in caso di modifiche importanti verrà indicato in questa schermata e nella data di aggiornamento. La versione in vigore è consultabile anche su https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Editore: Cahit Küçük · Email: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+<div data-dil="ru"><header><h1>Кассовая книга</h1><p class="slogan">Личная книга доходов и расходов. Данные остаются на твоём устройстве.</p><nav><a href="index.html">Главная</a><a href="gizlilik.html">Политика конфиденциальности</a><a href="destek.html">Поддержка</a><a href="veri-silme.html">Удаление данных</a></nav></header><h2>Политика конфиденциальности</h2>
+<p class="kucuk">Последнее обновление: Ağustos 2026. Этот текст носит информационный характер и не заменяет юридическую консультацию.</p>
+<h3>1. Оператор данных и сфера действия</h3><p>«Кассовая книга» (далее — приложение) — мобильное приложение для учёта личных доходов и расходов. Издатель приложения и оператор данных — Cahit Küçük. Этот текст объясняет, какие сведения обрабатываются при использовании приложения и какие у тебя права.</p>
+<h3>2. Обрабатываемые сведения и место хранения</h3><p>Все данные, которые ты вводишь в приложение (названия счетов, операции, категории, лимиты бюджета, фотографии операций, настройки языка, валюты и темы), хранятся только в локальном хранилище твоего собственного устройства (IndexedDB). Эти данные не покидают устройство; они не передаются ни нам, ни на какой-либо сервер. Приложению не нужны учётная запись, регистрация, электронная почта или пароль.</p>
+<h3>3. Срок хранения</h3><p>Данные остаются на устройстве, пока ты не удалишь их или не используешь «Сбросить всё». При удалении приложения все данные на устройстве удаляются вместе с ним. Поскольку у нас нет копии, отдельного срока хранения у нас тоже нет.</p>
+<h3>4. Передача третьим лицам</h3><p>Твои данные не передаются третьим лицам, не продаются и не используются для маркетинга. В приложении нет рекламных сетей, аналитических инструментов и стороннего программного обеспечения, отслеживающего пользователей.</p>
+<h3>5. Подключение к интернету и внешние сервисы</h3><p>Приложение подключается к интернету только с одной целью — получить актуальные курсы валют. Этот запрос идёт к ежедневным данным Центрального банка Турецкой Республики (tcmb.gov.tr), а если он недоступен — к резервному открытому источнику (open.er-api.com). Загружаются только сведения о курсах; никакие твои личные данные, операции или сведения об устройстве не отправляются. Если ты не пользуешься валютными функциями, приложение работает полностью офлайн.</p>
+<h3>6. Разрешения устройства</h3><p>Приложение запрашивает разрешение только для той функции, которой ты пользуешься. Разрешение на камеру запрашивается, когда ты хочешь добавить к записи фотографию чека, и снимок сохраняется только на твоём устройстве. Разрешение на уведомления запрашивается при включении напоминания и используется лишь для показа локального уведомления на устройстве в выбранное тобой время. Ты можешь отказать; тогда перестанет работать только эта функция, остальное приложение используется как обычно. К геолокации, контактам, SMS и журналу звонков доступа нет.</p>
+<h3>7. Как воспользоваться своими правами</h3><p>Поскольку данные находятся на твоём устройстве и под твоим контролем, права на доступ, исправление и удаление ты реализуешь прямо в приложении: можешь просматривать, изменять и удалять любую запись. С помощью экспорта (.json или .xlsx) можно получить переносимую копию своих данных.</p>
+<h3>8. Порядок удаления</h3><p>Счёт без движений можно удалить прямо на экране Счета. При удалении счёта с движениями он сначала переносится в Удалённые счета, чтобы не потерять данные; оттуда его можно восстановить или убрать окончательно. «Сбросить всё» удаляет все данные безвозвратно.</p>
+<h3>9. Безопасность</h3><p>Данные хранятся в защищённой области приложений твоего устройства. Дополнительный уровень приватности можно добавить, задав PIN в разделе Ещё → Код доступа. PIN защищает экран от посторонних глаз, но не шифрует данные на устройстве. Рекомендуем пользоваться блокировкой экрана устройства и обновлённой операционной системой.</p>
+<h3>10. Cookie и отслеживание</h3><p>Приложение не использует cookie, не создаёт рекламных идентификаторов, не снимает отпечаток устройства и не отслеживает поведение пользователя.</p>
+<h3>11. Трансграничная передача данных</h3><p>Так как твои личные данные не покидают устройство, передача за рубеж не производится. Запрос курсов валют возвращает только данные о курсах и не содержит личных сведений.</p>
+<h3>12. Приватность детей</h3><p>Приложение не предназначено для детей и сознательно не собирает данные детей. В любом случае данные не собираются ни от одного пользователя.</p>
+<h3>13. Связь и изменения</h3><p>Вопросы о приватности можно направить на cahit_kucuk@hotmail.com.tr. Эта политика может обновляться; при важных изменениях это будет отмечено на этом экране и в дате обновления. Действующую версию можно также найти на https://cahitkucukofficial.github.io/kasadefteriapp/gizlilik.html.</p><footer>Издатель: Cahit Küçük · Электронная почта: <a href="mailto:cahit_kucuk@hotmail.com.tr">cahit_kucuk@hotmail.com.tr</a></footer></div>
+</div>
+<nav class="sayfa-gecis" aria-label="Sayfa gezinme">
+  <a class="sg-btn sg-prev" href="index.html"><span class="arrow">←</span><span class="txt" data-sg="prev">Geri</span></a>
+  <a class="sg-home" href="index.html" aria-label="Ana Sayfa">⌂</a>
+  <a class="sg-btn sg-next" href="destek.html"><span class="txt" data-sg="next">İleri</span><span class="arrow">→</span></a>
+</nav>
+
+<script>
+
+var SG_LABELS = {
+  tr:{prev:'Geri',next:'İleri'}, en:{prev:'Back',next:'Next'}, de:{prev:'Zurück',next:'Weiter'},
+  fr:{prev:'Retour',next:'Suivant'}, es:{prev:'Atrás',next:'Siguiente'}, it:{prev:'Indietro',next:'Avanti'},
+  ru:{prev:'Назад',next:'Далее'}
+};
+function sgGuncelle(kod){
+  var L = SG_LABELS[kod] || SG_LABELS.tr;
+  var p = document.querySelector('[data-sg="prev"]'); if(p) p.textContent = L.prev;
+  var n = document.querySelector('[data-sg="next"]'); if(n) n.textContent = L.next;
+}
+
+function dilSec(kod){
+  sgGuncelle(kod);
+  document.querySelectorAll('[data-dil]').forEach(function(el){
+    el.classList.toggle('acik', el.getAttribute('data-dil') === kod);
+  });
+  document.querySelectorAll('.diller button').forEach(function(b){
+    b.setAttribute('aria-current', b.getAttribute('data-kod') === kod ? 'true' : 'false');
+  });
+  document.documentElement.lang = kod;
+  try { localStorage.setItem('site-dil', kod); } catch(e){}
+}
+(function(){
+  var kayitli = null;
+  try { kayitli = localStorage.getItem('site-dil'); } catch(e){}
+  var tarayici = (navigator.language || 'tr').slice(0,2);
+  var destekli = ["tr","en","de","fr","es","it","ru"];
+  var sec = destekli.indexOf(kayitli) >= 0 ? kayitli : (destekli.indexOf(tarayici) >= 0 ? tarayici : 'tr');
+  dilSec(sec);
+  window.scrollTo(0,0);
+})();
+</script>
+</body>
+</html>
